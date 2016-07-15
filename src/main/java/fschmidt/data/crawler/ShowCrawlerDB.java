@@ -1,0 +1,15 @@
+package fschmidt.data.crawler;
+
+import fschmidt.data.crawler.db.EmbeddedDerbyDB;
+
+/**
+ *
+ * @author fschmidt
+ */
+public class ShowCrawlerDB {
+    
+    public static void main(String[] args){
+        String path = "/Volumes/sd/";
+        EmbeddedDerbyDB.getInstance(path).getAllTexts();
+    }
+}
