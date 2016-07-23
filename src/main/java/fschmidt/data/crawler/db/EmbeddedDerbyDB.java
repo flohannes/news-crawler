@@ -127,10 +127,11 @@ public class EmbeddedDerbyDB {
         List<Text> texts = new ArrayList<>();
         try {
             ResultSet results = connection.createStatement().executeQuery("select * from texts");
-            System.out.println("count: " + results.getMetaData().getColumnCount() + " ");
-            for (int i = 1; i <= results.getMetaData().getColumnCount(); i++) {
-                System.out.format("%100s", results.getMetaData().getColumnName(i) + " ; ");
-            }
+//            System.out.println("count: " + results.getMetaData().getColumnCount() + " ");
+//            for (int i = 1; i <= results.getMetaData().getColumnCount(); i++) {
+//                System.out.format("%100s", results.getMetaData().getColumnName(i) + " ; ");
+//            }
+            int counter = 0;
             while (results.next()) {
                 String title = results.getString(1);
                 String article = results.getString(2);
@@ -156,12 +157,28 @@ public class EmbeddedDerbyDB {
                 Text text = new Text(textSourceUrl, new Date(timestamp), author, description, title, article, tagsArray, source);
                 texts.add(text);
 
-                System.out.println(text.getTitle());
+//                System.out.println(text.getTitle());
+                counter++;
             }
+            System.out.println(counter + " articles");
         } catch (SQLException ex) {
             Logger.getLogger(EmbeddedDerbyDB.class.getName()).log(Level.SEVERE, null, ex);
         }
         return texts;
+    }
+    
+    public List<Text> getAllEnglishTexts() {
+        List<Text> texts = getAllTexts();
+        List<Text> englishTexts = new ArrayList<>();
+        for(Text text : texts){
+//            System.out.println(text.getSource().getLanguage().getLanguage());
+            if(text.getSource().getLanguage().getLanguage().equals(Locale.ENGLISH.getLanguage())){
+                englishTexts.add(text);
+//                System.out.println(text.getTitle());
+            }
+        }
+        System.out.println(englishTexts.size() + " english articles");
+        return englishTexts;
     }
 
     public void getAllSources() {

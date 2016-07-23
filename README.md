@@ -7,7 +7,7 @@ RSS feed crawler storing data in an embedded Derby DB from more than 50 sources.
 
 Run code with Parameters: <database path> <crawle interval in min:double> <randomize interval:true/false>
 Example: ```
-> java -cp run-data-crawler-jar-with-dependencies.jar fschmidt.data.crawler.Run /Volumes/sd/abc/ 1.0 true
+> java -cp run-data-crawler-jar-with-dependencies.jar fschmidt.data.crawler.Run /home/pi/data/ 20.0 true
 ```
 
 ##Exemplary Sources
@@ -34,3 +34,5 @@ tba
 
 ##Next steps
 *merge crawling results from differen databases
+*spider crawler
+*twitter,instagram,facebook crawler

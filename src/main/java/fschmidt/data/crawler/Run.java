@@ -20,6 +20,11 @@ public class Run {
         String dbPath = args[0];
         double meanCrawlerInterval = Double.valueOf(args[1]);
         boolean randomize = Boolean.getBoolean(args[2]);
+
+
+//        String dbPath = "Volumes/sd/somedb/";
+//        double meanCrawlerInterval = 0.5;
+//        boolean randomize = false;
         //exist/create database
         File dbFilePath = new File(dbPath);
         dbFilePath.mkdirs();
