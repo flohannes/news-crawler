@@ -35,6 +35,9 @@ Example:
 ## Developer
 tba
 
+## Licence
+tba
+
 ## Next steps
 * merge crawling results from differen databases
 * JDBC connection to a variety of different databases
