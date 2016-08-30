@@ -1,5 +1,6 @@
-package fschmidt.data.crawler.input.rss;
+package fschmidt.data.crawler.input.rss.sites;
 
+import fschmidt.data.crawler.input.rss.RetrieveWebsiteText;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;

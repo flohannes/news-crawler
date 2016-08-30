@@ -7,12 +7,12 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- *
  * @author fschmidt
  */
 public class Run {
 
     public static void main(String[] args) {
+        //Handling args parameters
         if ((args == null) || args.length != 3) {
             System.err.println("Parameters: <database path> <crawle interval in min:double> <randomize interval:true/false>");
             System.exit(0);
@@ -21,10 +21,6 @@ public class Run {
         double meanCrawlerInterval = Double.valueOf(args[1]);
         boolean randomize = Boolean.getBoolean(args[2]);
 
-
-//        String dbPath = "Volumes/sd/somedb/";
-//        double meanCrawlerInterval = 0.5;
-//        boolean randomize = false;
         //exist/create database
         File dbFilePath = new File(dbPath);
         dbFilePath.mkdirs();

@@ -5,7 +5,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 /**
- *
+ * This class implements a simple routine to retrieve the text of a given website.
  * @author Florian
  */
 public class DefaultWebsiteText implements RetrieveWebsiteText {

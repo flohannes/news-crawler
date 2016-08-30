@@ -6,9 +6,14 @@
 package fschmidt.data.crawler.input.rss;
 
 /**
- *
+ * This interface is an adapter to website specific text crawling extensions.
  * @author Florian
  */
 public interface RetrieveWebsiteText {
+    /**
+     * 
+     * @param link Url to the website to be crawled.
+     * @return Extracted text from the website.
+     */
     public String getWholeText(String link);
 }

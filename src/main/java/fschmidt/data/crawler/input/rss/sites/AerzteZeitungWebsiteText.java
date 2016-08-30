@@ -1,5 +1,6 @@
-package fschmidt.data.crawler.input.rss;
+package fschmidt.data.crawler.input.rss.sites;
 
+import fschmidt.data.crawler.input.rss.RetrieveWebsiteText;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -10,7 +11,7 @@ import org.jsoup.nodes.Document;
  *
  * @author Florian
  */
-public class AokClarimedisWebsiteText implements RetrieveWebsiteText {
+public class AerzteZeitungWebsiteText implements RetrieveWebsiteText {
 
     @Override
     public String getWholeText(String link) {
@@ -18,9 +19,9 @@ public class AokClarimedisWebsiteText implements RetrieveWebsiteText {
         try {
             // need http protocol
             Document doc = Jsoup.connect(link).timeout(10 * 1000).get();
-            if (doc.select("#inhalt") != null) {
-                if (doc.select("#inhalt").first() != null) {
-                    wholeText = doc.select("#inhalt").first().text();
+            if (doc.select("#story") != null) {
+                if (doc.select("#story").first() != null) {
+                    wholeText = doc.select("#story").first().text();
                 }
             }
         } catch (IOException e) {
@@ -29,4 +30,6 @@ public class AokClarimedisWebsiteText implements RetrieveWebsiteText {
         return wholeText;
     }
     
+            
+            
 }

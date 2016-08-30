@@ -18,20 +18,21 @@ import java.util.logging.Logger;
 import org.apache.commons.lang3.LocaleUtils;
 
 /**
+ * This class handels the communication with an embedded database, which stores crawled texts. It is implemented as singleton.
  *
  * @author fschmidt
  */
 public class EmbeddedDerbyDB {
 
     private static EmbeddedDerbyDB instance;
-    private static final String driver = "org.apache.derby.jdbc.EmbeddedDriver";
+    private static final String DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
     private String database = "CrawlerDB";
     private Connection connection;
 
     private EmbeddedDerbyDB(String path) {
         try {
             this.database = path + "CrawlerDB";
-            Class.forName(driver).newInstance();
+            Class.forName(DRIVER).newInstance();
             connection = DriverManager.getConnection("jdbc:derby:" + database + ";create=true");
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException ex) {
             Logger.getLogger(EmbeddedDerbyDB.class.getName()).log(Level.SEVERE, null, ex);
@@ -39,6 +40,12 @@ public class EmbeddedDerbyDB {
 
     }
 
+    /**
+     * Gets an instance of this class, conntected to a given embedded derby database at the given path.
+     *
+     * @param path The directory path to the embedded derby database.
+     * @return
+     */
     public static EmbeddedDerbyDB getInstance(String path) {
         if (instance == null) {
             instance = new EmbeddedDerbyDB(path);
@@ -46,6 +53,9 @@ public class EmbeddedDerbyDB {
         return instance;
     }
 
+    /**
+     * This method creates all needed tables to a given embedded database.
+     */
     public void createDatabase() {
         try {
             DatabaseMetaData metas = connection.getMetaData();
@@ -63,6 +73,12 @@ public class EmbeddedDerbyDB {
         }
     }
 
+    /**
+     * This method adds new crawled texts to the database. First it checks, if a given text is already stored in the database. If not, the
+     * text is added to the database.
+     *
+     * @param text The text to be added to the database. Only new texts, which are different in the title, will be stored.
+     */
     public void addText(Text text) {
         String insertSourcesTableSQL = "INSERT INTO sources"
                 + "(feedSource, language) VALUES"
@@ -105,6 +121,9 @@ public class EmbeddedDerbyDB {
         }
     }
 
+    /**
+     * This method prints all titles of the stored texts.
+     */
     public void printAllTexts() {
         try {
             ResultSet results = connection.createStatement().executeQuery("select title from texts");
@@ -123,14 +142,15 @@ public class EmbeddedDerbyDB {
         }
     }
 
+    /**
+     * This method queries the embedded database for all stored texts and returnes a list of Text.class.
+     *
+     * @return All texts stored in the given database.
+     */
     public List<Text> getAllTexts() {
         List<Text> texts = new ArrayList<>();
         try {
             ResultSet results = connection.createStatement().executeQuery("select * from texts");
-//            System.out.println("count: " + results.getMetaData().getColumnCount() + " ");
-//            for (int i = 1; i <= results.getMetaData().getColumnCount(); i++) {
-//                System.out.format("%100s", results.getMetaData().getColumnName(i) + " ; ");
-//            }
             int counter = 0;
             while (results.next()) {
                 String title = results.getString(1);
@@ -157,7 +177,6 @@ public class EmbeddedDerbyDB {
                 Text text = new Text(textSourceUrl, new Date(timestamp), author, description, title, article, tagsArray, source);
                 texts.add(text);
 
-//                System.out.println(text.getTitle());
                 counter++;
             }
             System.out.println(counter + " articles");
@@ -166,21 +185,28 @@ public class EmbeddedDerbyDB {
         }
         return texts;
     }
-    
+
+    /**
+     * This method retrieves all texts, which are tagged with the English language.
+     *
+     * @return English texts from the database.
+     */
     public List<Text> getAllEnglishTexts() {
         List<Text> texts = getAllTexts();
         List<Text> englishTexts = new ArrayList<>();
-        for(Text text : texts){
-//            System.out.println(text.getSource().getLanguage().getLanguage());
-            if(text.getSource().getLanguage().getLanguage().equals(Locale.ENGLISH.getLanguage())){
+        for (Text text : texts) {
+            if (text.getSource().getLanguage().getLanguage().equals(Locale.ENGLISH.getLanguage())) {
                 englishTexts.add(text);
-//                System.out.println(text.getTitle());
+                System.out.println(text.getDescription());
             }
         }
         System.out.println(englishTexts.size() + " english articles");
         return englishTexts;
     }
 
+    /**
+     * This method prints all feed sources in the database.
+     */
     public void getAllSources() {
         try {
             ResultSet results = connection.createStatement().executeQuery("select feedSource from sources");
@@ -199,6 +225,9 @@ public class EmbeddedDerbyDB {
         }
     }
 
+    /**
+     * This method closes the connection to a given database.
+     */
     public void close() {
         try {
             connection.close();

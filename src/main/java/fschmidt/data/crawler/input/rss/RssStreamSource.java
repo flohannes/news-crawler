@@ -16,6 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * This class crawles for a given feed all texts in the feed.
  *
  * @author Florian
  */
@@ -23,10 +24,21 @@ public class RssStreamSource {
 
     private final RssUrl rssUrl;
 
+    /**
+     * Constructor of RssStreamSource
+     *
+     * @param rssUrl RssUrl enum value to be used for crawling.
+     */
     public RssStreamSource(RssUrl rssUrl) {
         this.rssUrl = rssUrl;
     }
 
+    /**
+     * This method iterates through all Entry from a given Rss Feed. For each entry consists of information, which are added to a new Text
+     * instance. The original article is crawled in addition from the given Url.
+     *
+     * @return Retrieved texts from the crawling.
+     */
     public List<Text> runCrawler() {
         List<Text> texts = new ArrayList<>();
         SyndFeedInput input = new SyndFeedInput();
@@ -47,18 +59,9 @@ public class RssStreamSource {
                 String link = entry.getLink();
                 String wholeText = rssUrl.getWebsiteText().getWholeText(link);
 
-                //TODO: Check if text exists in DB
                 Text text = new Text(entry.getUri(), new Date(), entry.getAuthor(), description, title, wholeText, categories.toArray(
                         new String[categories.size()]), rssUrl.getSource());
                 texts.add(text);
-//                if (!ElasticSearchConnector.getInstance().isTextAlreadyCrawled(text) && !wholeText.isEmpty()) {
-//                    System.out.println("text: " + wholeText);
-//
-//                    //Save new Text
-//                    ElasticSearchConnector.getInstance().addDocument(ElasticSearchConnector.NEWTEXT_DOCUMENTTYPE, text);
-//                } else {
-//                    System.out.println("text: non");
-//                }
             }
         } catch (IllegalArgumentException | FeedException | IOException ex) {
             Logger.getLogger(RssStreamSource.class.getName()).log(Level.SEVERE, null, ex);

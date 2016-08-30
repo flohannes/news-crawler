@@ -1,9 +1,22 @@
 package fschmidt.data.crawler.input.rss;
 
+import fschmidt.data.crawler.input.rss.sites.FAZWebsiteText;
+import fschmidt.data.crawler.input.rss.sites.AerzteZeitungWebsiteText;
+import fschmidt.data.crawler.input.rss.sites.ReutersWebsiteText;
+import fschmidt.data.crawler.input.rss.sites.SpringerMedWebsiteText;
+import fschmidt.data.crawler.input.rss.sites.BlogMedWebsiteText;
+import fschmidt.data.crawler.input.rss.sites.ZeitWebsiteText;
+import fschmidt.data.crawler.input.rss.sites.WebDeWebsiteText;
+import fschmidt.data.crawler.input.rss.sites.SpiegelOnlineWebsiteText;
+import fschmidt.data.crawler.input.rss.sites.AerzteblattWebsiteText;
+import fschmidt.data.crawler.input.rss.sites.ScienceMagWebsiteText;
+import fschmidt.data.crawler.input.rss.sites.DWWebsiteText;
+import fschmidt.data.crawler.input.rss.sites.SueddeutscheWebsiteText;
 import fschmidt.data.crawler.model.Source;
 import java.util.Locale;
 
 /**
+ * This enum stores all possible Rss Feeds, which can be crawled.
  *
  * @author Florian
  */
@@ -31,29 +44,29 @@ public enum RssUrl {
     googleblog(
             new Source("https://www.blogger.com/feeds/10861780/posts/default?redirect=false&start-index=1&max-results=10", Locale.ENGLISH),
             new DefaultWebsiteText()),
-//    museumtwo(new Source("https://www.blogger.com/feeds/37032121/posts/default?redirect=false&start-index=1&max-results=10", Locale.ENGLISH),
-//            new DefaultWebsiteText()),
-//    philosophicalcomment(new Source(
-//            "https://www.blogger.com/feeds/6763377479629539589/posts/default?redirect=false&start-index=1&max-results=10",
-//            Locale.ENGLISH), new DefaultWebsiteText()),
-//    shadesofgreen(new Source("https://www.blogger.com/feeds/2035975229081483385/posts/default?redirect=false&start-index=1&max-results=10",
-//            Locale.ENGLISH), new DefaultWebsiteText()),
-//    nadnutsshortstories(new Source("https://www.blogger.com/feeds/11529337/posts/default?redirect=false&start-index=1&max-results=10",
-//            Locale.ENGLISH),
-//            new DefaultWebsiteText()),
-//    storywheel(new Source("https://www.blogger.com/feeds/812018966351611184/posts/default?redirect=false&start-index=1&max-results=10",
-//            Locale.ENGLISH), new DefaultWebsiteText()),
-//    mayontheshortstory(new Source(
-//            "https://www.blogger.com/feeds/3161136885462262525/posts/default?redirect=false&start-index=1&max-results=10",
-//            Locale.ENGLISH), new DefaultWebsiteText()),
+    //    museumtwo(new Source("https://www.blogger.com/feeds/37032121/posts/default?redirect=false&start-index=1&max-results=10", Locale.ENGLISH),
+    //            new DefaultWebsiteText()),
+    //    philosophicalcomment(new Source(
+    //            "https://www.blogger.com/feeds/6763377479629539589/posts/default?redirect=false&start-index=1&max-results=10",
+    //            Locale.ENGLISH), new DefaultWebsiteText()),
+    //    shadesofgreen(new Source("https://www.blogger.com/feeds/2035975229081483385/posts/default?redirect=false&start-index=1&max-results=10",
+    //            Locale.ENGLISH), new DefaultWebsiteText()),
+    //    nadnutsshortstories(new Source("https://www.blogger.com/feeds/11529337/posts/default?redirect=false&start-index=1&max-results=10",
+    //            Locale.ENGLISH),
+    //            new DefaultWebsiteText()),
+    //    storywheel(new Source("https://www.blogger.com/feeds/812018966351611184/posts/default?redirect=false&start-index=1&max-results=10",
+    //            Locale.ENGLISH), new DefaultWebsiteText()),
+    //    mayontheshortstory(new Source(
+    //            "https://www.blogger.com/feeds/3161136885462262525/posts/default?redirect=false&start-index=1&max-results=10",
+    //            Locale.ENGLISH), new DefaultWebsiteText()),
     ibmresearchnews(
             new Source("https://www.blogger.com/feeds/3821464279005499761/posts/default?redirect=false&start-index=1&max-results=10",
                     Locale.ENGLISH), new DefaultWebsiteText()),
-//    lowcarbnews(new Source("https://www.blogger.com/feeds/8165224834813913621/posts/default?redirect=false&start-index=1&max-results=10",
-//            Locale.ENGLISH), new DefaultWebsiteText()),
-//    movieon(new Source("https://www.blogger.com/feeds/33971765/posts/default?redirect=false&start-index=1&max-results=10", Locale.ENGLISH),
-//            new DefaultWebsiteText()),
-    SCIENCEMAG(new Source("http://news.sciencemag.org/rss/current.xml", Locale.ENGLISH), new ScienceMagWebsiteText()),
+    //    lowcarbnews(new Source("https://www.blogger.com/feeds/8165224834813913621/posts/default?redirect=false&start-index=1&max-results=10",
+    //            Locale.ENGLISH), new DefaultWebsiteText()),
+    //    movieon(new Source("https://www.blogger.com/feeds/33971765/posts/default?redirect=false&start-index=1&max-results=10", Locale.ENGLISH),
+    //            new DefaultWebsiteText()),
+    SCIENCEMAG(new Source("https://www.sciencemag.org/rss/news_current.xml", Locale.ENGLISH), new ScienceMagWebsiteText()),
     NYTIMESFRONTPAGE(new Source("http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml", Locale.ENGLISH), new DefaultWebsiteText()),
     REUTERSTOPNEWS(new Source("http://feeds.reuters.com/reuters/topNews.xml", Locale.ENGLISH), new ReutersWebsiteText()),
     REUTERSWORLDNEWS(new Source("http://feeds.reuters.com/Reuters/worldNews", Locale.ENGLISH), new ReutersWebsiteText()),
@@ -76,8 +89,8 @@ public enum RssUrl {
     HISTAMIN(new Source("http://www.histaminunvertraeglichkeit.net/blog/feed", Locale.GERMAN), new DefaultWebsiteText()),
     AERZTEZEITUNG(new Source("http://www.aerztezeitung.de/extras/rss/?cat=medizin", Locale.GERMAN), new AerzteZeitungWebsiteText()),
     SPRINGERMED(new Source("http://www.springermedizin.at/cms/rss.php", Locale.GERMAN), new SpringerMedWebsiteText()),
-//    PUBMED_HCC(new Source("http://www.ncbi.nlm.nih.gov/entrez/eutils/erss.cgi?rss_guid=1BsDMEWA_ZXjDgIGJiLJwmhs8MfJk6YAoNZ_QRB3WYaR5agUhP",
-//            Locale.GERMAN), new DefaultWebsiteText()),
+    //    PUBMED_HCC(new Source("http://www.ncbi.nlm.nih.gov/entrez/eutils/erss.cgi?rss_guid=1BsDMEWA_ZXjDgIGJiLJwmhs8MfJk6YAoNZ_QRB3WYaR5agUhP",
+    //            Locale.GERMAN), new DefaultWebsiteText()),
     //    AOK_CLARIMEDIS(new Source("https://www.aok.de/rss.xml", Locale.GERMAN), new AokClarimedisWebsiteText()),
     SPRINGER_INNERE(new Source("http://www.springermedizin.at/cms/rss.php?feed=349", Locale.GERMAN), new SpringerMedWebsiteText()),
     SCINEXX(new Source("http://feeds.feedburner.com/scinexx", Locale.GERMAN), new DefaultWebsiteText()),
@@ -130,22 +143,33 @@ public enum RssUrl {
     POKEMON_REDDIT(new Source("https://www.reddit.com/r/pokemon/.rss", Locale.ENGLISH), new DefaultWebsiteText()),
     FRONTPAGE_REDDIT(new Source("https://www.reddit.com/.rss", Locale.ENGLISH), new DefaultWebsiteText()),
     BREXIT_REDDIT(new Source("https://www.reddit.com/r/brexit/.rss", Locale.ENGLISH), new DefaultWebsiteText()),
-    BREXIT_GOOGLE_NEWS(new Source("https://news.google.com/news?ned=us&hl=en&output=rss&num=30&q=Brexit", Locale.ENGLISH), new DefaultWebsiteText()),
-    TURKEY_GOOGLE_NEWS(new Source("https://news.google.com/news?ned=us&hl=en&output=rss&num=30&q=turkey", Locale.ENGLISH), new DefaultWebsiteText()),
-    ERDOGAN_GOOGLE_NEWS(new Source("https://news.google.com/news?ned=us&hl=en&output=rss&num=30&q=erdogan", Locale.ENGLISH), new DefaultWebsiteText()),
-    MERKEL_GOOGLE_NEWS(new Source("https://news.google.com/news?ned=us&hl=en&output=rss&num=30&q=merkel", Locale.ENGLISH), new DefaultWebsiteText()),
-    ELECTION_GOOGLE_NEWS(new Source("https://news.google.com/news?ned=us&hl=en&output=rss&num=30&q=election", Locale.ENGLISH), new DefaultWebsiteText()),
-    BUNDESTAGSWAHL_GOOGLE_NEWS(new Source("https://news.google.com/news?ned=de&hl=de&output=rss&num=30&q=Bundestagswahl", Locale.GERMAN), new DefaultWebsiteText()),
-    US_PRESIDENT_GOOGLE_NEWS(new Source("https://news.google.com/news?ned=us&hl=en&output=rss&num=30&q=us+president", Locale.ENGLISH), new DefaultWebsiteText()),
-    TERROR_GOOGLE_NEWS(new Source("https://news.google.com/news?ned=us&hl=en&output=rss&num=30&q=terror", Locale.ENGLISH), new DefaultWebsiteText()),
+    BREXIT_GOOGLE_NEWS(new Source("https://news.google.com/news?ned=us&hl=en&output=rss&num=30&q=Brexit", Locale.ENGLISH),
+            new DefaultWebsiteText()),
+    TURKEY_GOOGLE_NEWS(new Source("https://news.google.com/news?ned=us&hl=en&output=rss&num=30&q=turkey", Locale.ENGLISH),
+            new DefaultWebsiteText()),
+    ERDOGAN_GOOGLE_NEWS(new Source("https://news.google.com/news?ned=us&hl=en&output=rss&num=30&q=erdogan", Locale.ENGLISH),
+            new DefaultWebsiteText()),
+    MERKEL_GOOGLE_NEWS(new Source("https://news.google.com/news?ned=us&hl=en&output=rss&num=30&q=merkel", Locale.ENGLISH),
+            new DefaultWebsiteText()),
+    ELECTION_GOOGLE_NEWS(new Source("https://news.google.com/news?ned=us&hl=en&output=rss&num=30&q=election", Locale.ENGLISH),
+            new DefaultWebsiteText()),
+    BUNDESTAGSWAHL_GOOGLE_NEWS(new Source("https://news.google.com/news?ned=de&hl=de&output=rss&num=30&q=Bundestagswahl", Locale.GERMAN),
+            new DefaultWebsiteText()),
+    US_PRESIDENT_GOOGLE_NEWS(new Source("https://news.google.com/news?ned=us&hl=en&output=rss&num=30&q=us+president", Locale.ENGLISH),
+            new DefaultWebsiteText()),
+    TERROR_GOOGLE_NEWS(new Source("https://news.google.com/news?ned=us&hl=en&output=rss&num=30&q=terror", Locale.ENGLISH),
+            new DefaultWebsiteText()),
     EU_GOOGLE_NEWS(new Source("https://news.google.com/news?ned=us&hl=en&output=rss&num=30&q=EU", Locale.ENGLISH), new DefaultWebsiteText()),
-    OLYMPICS_GOOGLE_NEWS(new Source("https://news.google.com/news?ned=us&hl=en&output=rss&num=30&q=olympics", Locale.ENGLISH), new DefaultWebsiteText()),
-    EARTHQUAKE_GOOGLE_NEWS(new Source("https://news.google.com/news?ned=us&hl=en&output=rss&num=30&q=earthquake", Locale.ENGLISH), new DefaultWebsiteText()),
-    ERUPTION_GOOGLE_NEWS(new Source("https://news.google.com/news?ned=us&hl=en&output=rss&num=30&q=eruption", Locale.ENGLISH), new DefaultWebsiteText()),
-    FLOOD_GOOGLE_NEWS(new Source("https://news.google.com/news?ned=us&hl=en&output=rss&num=30&q=flood", Locale.ENGLISH), new DefaultWebsiteText()),
-    BING_NEWS(new Source("https://www.bing.com/news/search?format=RSS&mkt=en-US", Locale.ENGLISH), new DefaultWebsiteText())
-    ;
-    
+    OLYMPICS_GOOGLE_NEWS(new Source("https://news.google.com/news?ned=us&hl=en&output=rss&num=30&q=olympics", Locale.ENGLISH),
+            new DefaultWebsiteText()),
+    EARTHQUAKE_GOOGLE_NEWS(new Source("https://news.google.com/news?ned=us&hl=en&output=rss&num=30&q=earthquake", Locale.ENGLISH),
+            new DefaultWebsiteText()),
+    ERUPTION_GOOGLE_NEWS(new Source("https://news.google.com/news?ned=us&hl=en&output=rss&num=30&q=eruption", Locale.ENGLISH),
+            new DefaultWebsiteText()),
+    FLOOD_GOOGLE_NEWS(new Source("https://news.google.com/news?ned=us&hl=en&output=rss&num=30&q=flood", Locale.ENGLISH),
+            new DefaultWebsiteText()),
+    BING_NEWS(new Source("https://www.bing.com/news/search?format=RSS&mkt=en-US", Locale.ENGLISH), new DefaultWebsiteText());
+
     private Source source = null;
     private RetrieveWebsiteText websiteText = null;
 
@@ -154,18 +178,26 @@ public enum RssUrl {
         this.setWebsiteText(websiteText);
     }
 
+    /**
+     *
+     * @return the Rss Feed Source containing the Feed Url and language of articles.
+     */
     public Source getSource() {
         return source;
     }
 
-    public void setSource(Source source) {
+    private void setSource(Source source) {
         this.source = source;
     }
 
-    public void setWebsiteText(RetrieveWebsiteText websiteText) {
+    private void setWebsiteText(RetrieveWebsiteText websiteText) {
         this.websiteText = websiteText;
     }
 
+    /**
+     *
+     * @return RetrieveWebsiteText, which collects the original text from a given website. This can be specific for a Feed.
+     */
     public RetrieveWebsiteText getWebsiteText() {
         return websiteText;
     }
