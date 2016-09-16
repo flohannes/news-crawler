@@ -7,11 +7,20 @@ RSS feed crawler storing data in an embedded Derby DB from more than 50 sources.
 
 Run code with Parameters: <database path> <crawle interval in min:double> <randomize interval:true/false>
 
-Example: 
+Example Collect feeds: 
+Run code with Parameters: <database path> <crawle interval in min:double> <randomize interval:true/false>
 
 ```
 > sudo java -cp run-data-crawler-jar-with-dependencies.jar fschmidt.data.crawler.Run /home/pi/data/ 20.0 true
 ```
+
+Example show collected data: 
+Run code with Parameters: <database path>
+
+```
+> sudo java -cp run-data-crawler-jar-with-dependencies.jar fschmidt.data.crawler.ShowCrawlerDB /home/pi/data/
+```
+
 
 ## Exemplary Sources
 * BBC
