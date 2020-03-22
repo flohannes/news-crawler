@@ -1,6 +1,6 @@
 # crawler/video
 # docker build --no-cache -t crawler/video -f  crawler-video.dockerfile .
-# docker run localhost /Volumes/sd/ 30 0
+# docker run elasticsearch /Volumes/sd/ 30 0
 FROM maven:3.6-jdk-11 as build
 WORKDIR /build
 COPY . .

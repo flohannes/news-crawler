@@ -4,16 +4,21 @@ services:
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.6.1
     container_name: elasticsearch
+    environment:
+      - discovery.type=single-node
+    ports:
+      - 9200:9200
+      - 9300:9300
     networks:
       docker-elk:
 
   crawler:
-    image: docker.flohannes/news-crawler:core
+    image: flohannes/news-crawler:core
     container_name: news-crawler
-    command: localhost 720
+    command: elasticsearch 720
     networks:
       - docker-elk
-    depends_on:
+    links:
       - elasticsearch
 
 networks:
