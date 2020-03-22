@@ -7,6 +7,8 @@ import com.rometools.rome.io.FeedException;
 import com.rometools.rome.io.SyndFeedInput;
 import com.rometools.rome.io.XmlReader;
 import fschmidt.data.crawler.model.Text;
+import org.jsoup.nodes.Document;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -57,10 +59,12 @@ public class RssStreamSource {
                 }
 
                 String link = entry.getLink();
-                String wholeText = rssUrl.getWebsiteText().getWholeText(link);
+                Document doc = rssUrl.getWebsiteText().getDocument(link);
+                String wholeText = rssUrl.getWebsiteText().getWholeText(doc);
+                String specificText = rssUrl.getWebsiteText().getSpecificText(doc);
 
-                Text text = new Text(entry.getUri(), new Date(), entry.getAuthor(), description, title, wholeText, categories.toArray(
-                        new String[categories.size()]), rssUrl.getSource());
+                Text text = new Text(entry.getUri(), new Date(), entry.getAuthor(), description, title, wholeText, specificText, categories.toArray(
+                        new String[categories.size()]), rssUrl.getSource(), link);
                 texts.add(text);
             }
         } catch (IllegalArgumentException | FeedException | IOException ex) {

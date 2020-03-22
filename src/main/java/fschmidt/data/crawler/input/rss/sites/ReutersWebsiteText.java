@@ -1,5 +1,6 @@
 package fschmidt.data.crawler.input.rss.sites;
 
+import fschmidt.data.crawler.input.rss.DefaultWebsiteText;
 import fschmidt.data.crawler.input.rss.RetrieveWebsiteText;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -11,17 +12,19 @@ import org.jsoup.nodes.Document;
  *
  * @author Florian
  */
-public class ReutersWebsiteText implements RetrieveWebsiteText {
+public class ReutersWebsiteText extends DefaultWebsiteText {
 
     @Override
-    public String getWholeText(String link) {
-        String wholeText = "";
-        try {
-            // need http protocol
-            Document doc = Jsoup.connect(link).timeout(10 * 1000).get();
-            if (doc.select("#articleText") != null) {
-                if (doc.select("#articleText").first() != null) {
-                    wholeText = doc.select("#articleText").first().text();
+    public String getSpecificText(Document doc) {
+        if(doc == null){
+            return "";
+        }        String wholeText = "";
+//        try {
+//            // need http protocol
+//            Document doc = Jsoup.connect(link).timeout(10 * 1000).get();
+            if (doc.select(".StandardArticleBody_container") != null) {
+                if (doc.select(".StandardArticleBody_container").first() != null) {
+                    wholeText = doc.select(".StandardArticleBody_container").first().text();//#articleText
 
                     if (wholeText.contains("(Reporting by ")) {
                         wholeText = wholeText.substring(0, wholeText.length() - (wholeText.length() - wholeText.indexOf("(Reporting by ")));
@@ -31,9 +34,9 @@ public class ReutersWebsiteText implements RetrieveWebsiteText {
                     }
                 }
             }
-        } catch (IOException e) {
-            Logger.getLogger(ZeitWebsiteText.class.getName()).log(Level.SEVERE, null, e);
-        }
+//        } catch (IOException e) {
+//            Logger.getLogger(ZeitWebsiteText.class.getName()).log(Level.SEVERE, null, e);
+//        }
         return wholeText;
     }
 

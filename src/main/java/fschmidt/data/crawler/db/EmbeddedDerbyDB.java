@@ -22,7 +22,7 @@ import org.apache.commons.lang3.LocaleUtils;
  *
  * @author fschmidt
  */
-public class EmbeddedDerbyDB {
+public class EmbeddedDerbyDB implements DatabaseConnection {
 
     private static EmbeddedDerbyDB instance;
     private static final String DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
@@ -62,7 +62,7 @@ public class EmbeddedDerbyDB {
             ResultSet textsTables = metas.getTables(connection.getCatalog(), null, "texts", null);
             if (!textsTables.next()) {
                 connection.createStatement().execute(
-                        "create table texts(title CLOB not null, article CLOB, textSourceUrl CLOB not null, timestamp bigint not null, author CLOB, description CLOB, source CLOB, tags CLOB)");
+                        "create table texts(title CLOB not null, article CLOB, textSourceUrl CLOB not null, timestamp bigint not null, author CLOB, description CLOB, source CLOB, tags CLOB, link CLOB, specifictext CLOB)");
             }
             ResultSet sourcesTables = metas.getTables(connection.getCatalog(), null, "sources", null);
             if (!sourcesTables.next()) {
@@ -84,8 +84,8 @@ public class EmbeddedDerbyDB {
                 + "(feedSource, language) VALUES"
                 + "(?,?)";
         String insertTextsTableSQL = "INSERT INTO texts"
-                + "(title, article, textSourceUrl, timestamp, author, description, source, tags) VALUES"
-                + "(?,?,?,?,?,?,?,?)";
+                + "(title, article, textSourceUrl, timestamp, author, description, source, tags, link, specifictext) VALUES"
+                + "(?,?,?,?,?,?,?,?,?,?)";
 
         try {
             String findSources = "select * from sources where feedSource LIKE ?";
@@ -114,6 +114,8 @@ public class EmbeddedDerbyDB {
                 preparedStatement.setString(6, text.getDescription());
                 preparedStatement.setString(7, text.getSource().getFeedSource());
                 preparedStatement.setString(8, Arrays.toString(text.getTags()));
+                preparedStatement.setString(9, text.getLink());
+                preparedStatement.setString(10, text.getSpecificText());
                 preparedStatement.executeUpdate();
             }
         } catch (SQLException ex) {
@@ -172,9 +174,11 @@ public class EmbeddedDerbyDB {
                     source = new Source(feedSource, local);
                 }
                 String tags = results.getString(8);
+                String link = results.getString(9);
+                String specificText = results.getString(10);
                 String[] tagsArray = tags.replaceAll("\\[", "").replaceAll("\\]", "").split(",");
 
-                Text text = new Text(textSourceUrl, new Date(timestamp), author, description, title, article, tagsArray, source);
+                Text text = new Text(textSourceUrl, new Date(timestamp), author, description, title, article, specificText, tagsArray, source, link);
                 texts.add(text);
 
                 counter++;

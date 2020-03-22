@@ -14,6 +14,8 @@ public class Text {
     private final String author;
     private final String description;
     private final String title;
+    private final String link;
+    private final String specificText;
     private final String[] tags;
     private final Source source;
 
@@ -28,8 +30,8 @@ public class Text {
      * @param tags Tags, which were set in the Rss Entry.
      * @param source Rss Feed source with its Url and language.
      */
-    public Text(String textSourceUrl, Date timestamp, String author, String description, String title, String article, String[] tags,
-            Source source) {
+    public Text(String textSourceUrl, Date timestamp, String author, String description, String title, String article, String specificText, String[] tags,
+            Source source, String link) {
         this.textSourceUrl = textSourceUrl;
         this.timestamp = timestamp;
         this.author = author;
@@ -38,6 +40,8 @@ public class Text {
         this.article = article;
         this.tags = tags;
         this.source = source;
+        this.link = link;
+        this.specificText = specificText;
     }
 
     /**
@@ -102,6 +106,14 @@ public class Text {
      */
     public Source getSource() {
         return source;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public String getSpecificText() {
+        return specificText;
     }
 
     @Override

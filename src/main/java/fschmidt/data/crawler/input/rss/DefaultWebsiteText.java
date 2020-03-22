@@ -11,15 +11,26 @@ import org.jsoup.nodes.Document;
 public class DefaultWebsiteText implements RetrieveWebsiteText {
 
     @Override
-    public String getWholeText(String link) {
-        String wholeText = "";
-        try {
-            Document doc = Jsoup.connect(link).timeout(10 * 1000).get();
-            wholeText = doc.text();
-        } catch (IOException ex) {
+    public String getWholeText(Document doc) {
+        if(doc == null){
             return "";
         }
+        String wholeText = doc.text();
         return wholeText;
+    }
+
+    public String getSpecificText(Document doc){
+        return "";
+    }
+
+    public Document getDocument(String link){
+        Document doc = null;
+        try {
+            doc = Jsoup.connect(link).timeout(10 * 1000).get();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return doc;
     }
 
 }

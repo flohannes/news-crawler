@@ -5,6 +5,8 @@
  */
 package fschmidt.data.crawler.input.rss;
 
+import org.jsoup.nodes.Document;
+
 /**
  * This interface is an adapter to website specific text crawling extensions.
  * @author Florian
@@ -12,8 +14,10 @@ package fschmidt.data.crawler.input.rss;
 public interface RetrieveWebsiteText {
     /**
      * 
-     * @param link Url to the website to be crawled.
+     * @param doc Url to the website to be crawled.
      * @return Extracted text from the website.
      */
-    public String getWholeText(String link);
+    public String getWholeText(Document doc);
+    public String getSpecificText(Document doc);
+    public Document getDocument(String link);
 }
