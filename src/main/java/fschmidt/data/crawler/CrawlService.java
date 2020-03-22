@@ -17,20 +17,17 @@ public class CrawlService extends TimerTask {
     private final List<RssUrl> rssFeeds;
     private final String databasePath;
     private final double crawleInterval;
-    private final String imagePath;
 
     /**
      * 
      * @param rssFeeds
      * @param path
      * @param crawleInterval
-     * @param imagePath
      */
-    public CrawlService(List<RssUrl> rssFeeds, String path, double crawleInterval, String imagePath) {
+    public CrawlService(List<RssUrl> rssFeeds, String path, double crawleInterval) {
         this.rssFeeds = rssFeeds;
         this.databasePath = path;
         this.crawleInterval = crawleInterval;
-        this.imagePath = imagePath;
     }
 
     /**
@@ -51,7 +48,7 @@ public class CrawlService extends TimerTask {
     public void run() {
         int delay = 60000;
         delay *= crawleInterval;
-        timer.schedule(new CrawlService(rssFeeds, databasePath, crawleInterval, imagePath), delay);
+        timer.schedule(new CrawlService(rssFeeds, databasePath, crawleInterval), delay);
         runCrawler(rssFeeds);
     }
 }
